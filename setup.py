@@ -1,6 +1,6 @@
 import setuptools
 
-with open("README.md", "r") as fh:
+with open("./README.md", "r") as fh:
 
     long_description = fh.read()
 
@@ -9,8 +9,6 @@ setuptools.setup(
      name='imdir',
 
      version='0.1',
-
-     scripts=['dokr'] ,
 
      author="Dhananjay Raut",
 
