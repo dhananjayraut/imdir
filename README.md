@@ -6,10 +6,17 @@ this simple package just helps with that
 ### WIP
 
 ## Installation
+```bash
+pip install git+https://github.com/dhananjayraut/imdir
+```
+### dependencies
+
+* matplotlib
+* pillow
 
 ## Usage
 ```python
-im_dir = image_dir(path="../input/train/") # give path to class 
+im_dir = image_dir(path="../input/train/") # give path to class
 
 imdir.sc_plot() # plot height and width as scatter plot
 
