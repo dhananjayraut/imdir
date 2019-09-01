@@ -32,7 +32,8 @@ jobs:
       run: |
         pip install pytest
         pytest
-build:
+
+build_mac:
 
     runs-on: macOS-latest
     strategy:
