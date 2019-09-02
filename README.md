@@ -1,5 +1,5 @@
 # imdir
-[![Actions Status](https://github.com/dhananjayraut/imdir/workflows/Pythonpackage/badge.svg)](https://github.com/dhananjayraut/imdir/actions)  
+[![Actions Status](https://github.com/dhananjayraut/imdir/workflows/Python%20package/badge.svg)](https://github.com/dhananjayraut/imdir/actions)  
 a simple python package to analyse a directory full of images  
 How many times you want to see what all types of images have in a directory
 this simple package just helps with that
