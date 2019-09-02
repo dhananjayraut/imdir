@@ -1,4 +1,4 @@
-from image_dir import image_dir
+from src.image_dir import image_dir
 
 """
 example:
