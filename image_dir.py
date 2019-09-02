@@ -1,4 +1,6 @@
 import os
+from os import listdir
+from os.path import isfile, join
 from PIL import Image
 import matplotlib.pyplot as plt
 
@@ -34,8 +36,7 @@ def _list_files(path="./"):
     Returns:
        list: list of paths of all image files in that folder
     """
-    file_list = [os.join(path, f) for f in os.listdir(path)
-                 if os.isfile(os.join(path, f))]
+    file_list = [join(path, f) for f in listdir(path) if isfile(join(path, f))]
     image_file_list = [f for f in file_list if _is_image_file(f)]
     return image_file_list
 
