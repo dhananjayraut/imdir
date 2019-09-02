@@ -1,11 +1,9 @@
 import os
-from os import listdir
-from os.path import isfile, join
 from PIL import Image
 import matplotlib.pyplot as plt
 
-IMG_EXTENSIONS = ('.jpg', '.jpeg', '.png', '.ppm', '.bmp', '.pgm', '.tif',
-                  '.tiff', '.webp')
+_IMG_EXTENSIONS = ('.jpg', '.jpeg', '.png', '.ppm', '.bmp', '.pgm', '.tif',
+                   '.tiff', '.webp')
 
 
 def _has_file_allowed_extension(filename, extensions):
@@ -26,7 +24,7 @@ def _is_image_file(filename):
     Returns:
         bool: True if the filename ends with a known image extension
     """
-    return _has_file_allowed_extension(filename, IMG_EXTENSIONS)
+    return _has_file_allowed_extension(filename, _IMG_EXTENSIONS)
 
 
 def _list_files(path="./"):
@@ -36,7 +34,8 @@ def _list_files(path="./"):
     Returns:
        list: list of paths of all image files in that folder
     """
-    file_list = [join(path, f) for f in listdir(path) if isfile(join(path, f))]
+    file_list = [os.path.join(path, f) for f in os.listdir(path)
+                 if os.path.isfile(os.path.join(path, f))]
     image_file_list = [f for f in file_list if _is_image_file(f)]
     return image_file_list
 
@@ -64,7 +63,9 @@ def _get_dimensions(image_path_list):
 
 
 class image_dir:
-    """image directory class"""
+    """
+    image directory class
+    """
     def __init__(self, path):
         """
         Args:
@@ -80,8 +81,8 @@ class image_dir:
         """
         Scatter plot for the image dimensions
         Args:
-            **kwds: Additional keyword arguments to matplotlib.pyplot 's 
-            scatter function
+            **kwds: Additional keyword arguments to
+                    matplotlib.pyplot 's scatter function
         """
         plt.scatter(self.width_list, self.height_list, alpha=0.5)
         plt.show()
@@ -90,8 +91,8 @@ class image_dir:
         """
         histogram plot for the image width.
         Args:
-            **kwds: Additional keyword arguments to matplotlib.pyplot 's 
-            hist function
+            **kwds: Additional keyword arguments to
+                    matplotlib.pyplot 's hist function
         """
         plt.hist(self.width_list)
         plt.show()
@@ -100,8 +101,8 @@ class image_dir:
         """
         histogram plot for the image height.
         Args:
-            **kwds: Additional keyword arguments to matplotlib.pyplot 's 
-            hist function
+            **kwds: Additional keyword arguments to
+                    matplotlib.pyplot 's hist function
         """
         plt.hist(self.height_list, **kwds)
         plt.show()
