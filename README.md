@@ -1,4 +1,5 @@
 # imdir
+[![Actions Status](https://github.com/dhananjayraut/imdir/workflows/Python%20package/badge.svg)](https://github.com/dhananjayraut/imdir/actions)  
 a simple python package to analyse a directory full of images  
 How many times you want to see what all types of images have in a directory
 this simple package just helps with that
@@ -6,10 +7,17 @@ this simple package just helps with that
 ### WIP
 
 ## Installation
+```bash
+pip install git+https://github.com/dhananjayraut/imdir
+```
+### dependencies
+
+* matplotlib
+* pillow
 
 ## Usage
 ```python
-im_dir = image_dir(path="../input/train/") # give path to class 
+im_dir = image_dir(path="../input/train/") # give path to class
 
 imdir.sc_plot() # plot height and width as scatter plot
 
