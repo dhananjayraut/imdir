@@ -69,14 +69,14 @@ class image_dir:
         self.width_list, self.height_list = _get_dimensions(self.file_list)
         return
 
-    def sc_plot(self):
+    def sc_plot(self, **kwds):
         plt.scatter(self.width_list, self.height_list, alpha=0.5)
         plt.show()
 
-    def width_plot(self):
+    def width_plot(self, **kwds):
         plt.hist(self.width_list)
         plt.show()
 
-    def height_plot(self):
-        plt.hist(self.height_list)
+    def height_plot(self, **kwds):
+        plt.hist(self.height_list, **kwds)
         plt.show()

@@ -8,7 +8,7 @@ setuptools.setup(
 
      name='imdir',
 
-     version='0.1',
+     version='0.1.dev1',
 
      author="Dhananjay Raut",
 
@@ -20,7 +20,7 @@ setuptools.setup(
 
      long_description_content_type="text/markdown",
 
-     url="https://github.com/",
+     url="https://github.com/dhananjayraut/imdir",
 
      packages=setuptools.find_packages(),
 
