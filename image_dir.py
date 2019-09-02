@@ -1,5 +1,4 @@
-from os import listdir
-from os.path import isfile, join
+import os
 from PIL import Image
 import matplotlib.pyplot as plt
 
@@ -35,7 +34,8 @@ def _list_files(path="./"):
     Returns:
        list: list of paths of all image files in that folder
     """
-    file_list = [join(path, f) for f in listdir(path) if isfile(join(path, f))]
+    file_list = [os.join(path, f) for f in os.listdir(path)
+                 if os.isfile(os.join(path, f))]
     image_file_list = [f for f in file_list if _is_image_file(f)]
     return image_file_list
 
@@ -63,20 +63,44 @@ def _get_dimensions(image_path_list):
 
 
 class image_dir:
-
+    """image directory class"""
     def __init__(self, path):
+        """
+        Args:
+            path (str): path for the directory
+        Returns:
+            a image_dir object
+        """
         self.file_list = _list_files(path)
         self.width_list, self.height_list = _get_dimensions(self.file_list)
         return
 
     def sc_plot(self, **kwds):
+        """
+        Scatter plot for the image dimensions
+        Args:
+            **kwds: Additional keyword arguments to matplotlib.pyplot 's 
+            scatter function
+        """
         plt.scatter(self.width_list, self.height_list, alpha=0.5)
         plt.show()
 
     def width_plot(self, **kwds):
+        """
+        histogram plot for the image width.
+        Args:
+            **kwds: Additional keyword arguments to matplotlib.pyplot 's 
+            hist function
+        """
         plt.hist(self.width_list)
         plt.show()
 
     def height_plot(self, **kwds):
+        """
+        histogram plot for the image height.
+        Args:
+            **kwds: Additional keyword arguments to matplotlib.pyplot 's 
+            hist function
+        """
         plt.hist(self.height_list, **kwds)
         plt.show()

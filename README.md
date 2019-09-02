@@ -19,7 +19,7 @@ pip install git+https://github.com/dhananjayraut/imdir
 ```python
 im_dir = image_dir(path="../input/train/") # give path to class
 
-imdir.sc_plot() # plot height and width as scatter plot
+imdir.sc_plot(alpha=0.5) # plot height and width as scatter plot
 
 imdir.width_plot() # plot width as histogram using matplotlib
 

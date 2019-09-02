@@ -5,7 +5,7 @@ example:
 
 direc = image_dir('/home/dhananjay/Pictures/')
 
-direc.sc_plot()
+direc.sc_plot(alpha=0.5)
 
 direc.width_plot()
 
