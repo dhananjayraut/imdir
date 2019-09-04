@@ -1,5 +1,6 @@
 import os
 from PIL import Image
+from multiprocessing import Pool, cpu_count
 import matplotlib.pyplot as plt
 
 _IMG_EXTENSIONS = ('.jpg', '.jpeg', '.png', '.ppm', '.bmp', '.pgm', '.tif',
@@ -27,15 +28,22 @@ def _is_image_file(filename):
     return _has_file_allowed_extension(filename, _IMG_EXTENSIONS)
 
 
-def _list_files(path="./"):
+def _list_files(path="./", recursive=False):
     """Returns the list of filepaths for image files in given folder
     Args:
         path (string): path to the folder
+        recursive (Boolean): whether to discover all sub directories
     Returns:
        list: list of paths of all image files in that folder
     """
-    file_list = [os.path.join(path, f) for f in os.listdir(path)
-                 if os.path.isfile(os.path.join(path, f))]
+    if recursive is False:
+        file_list = [os.path.join(path, f) for f in os.listdir(path)
+                     if os.path.isfile(os.path.join(path, f))]
+    else:
+        file_list = []
+        for folder, subs, files in os.walk(path):
+            for filename in files:
+                file_list.append(os.path.join(folder, filename))
     image_file_list = [f for f in file_list if _is_image_file(f)]
     return image_file_list
 
@@ -51,30 +59,56 @@ def _get_dimension(image_path):
     return list(image.size)
 
 
-def _get_dimensions(image_path_list):
+def _get_dimensions(image_path_list, nthreads=-1):
     """get dimensions of list of images
     Args:
        image_path_list (list): list containing paths of image files
     Returns:
        list: list of paths of all image files in that folder
     """
-    dims = [_get_dimension(f) for f in image_path_list]
+
+    if nthreads == 0:
+        dims = [_get_dimension(f) for f in image_path_list]
+    else:
+        if nthreads == -1:
+            nthreads = cpu_count()
+        with Pool(nthreads) as p:
+            dims = p.map(_get_dimension, image_path_list)
     return [f[0] for f in dims], [f[1] for f in dims]
+
+
+def _get_extensions(image_path_list):
+    """get extensions of list of images
+    Args:
+       image_path_list (list): list containing paths of image files
+    Returns:
+       list: list of extensions of all image files in that folder
+    """
+    return [str(f).split('.')[-1] for f in image_path_list]
 
 
 class image_dir:
     """
     image directory class
     """
-    def __init__(self, path):
+    def __init__(self, path, recursive=False, nthreads=-1):
         """
         Args:
             path (str): path for the directory
+            recursive (Boolean): whether to discover all sub directories
+                                 default False
+            nthreads (int): Number of threads used
+                            -1 (default) means use all cpu cores
+                            0  means do it in main thread (slow)
         Returns:
             a image_dir object
         """
-        self.file_list = _list_files(path)
-        self.width_list, self.height_list = _get_dimensions(self.file_list)
+        self.file_list = _list_files(path, recursive)
+        self.width_list, self.height_list = _get_dimensions(self.file_list,
+                                                            nthreads)
+        exten_list = _get_extensions(self.file_list)
+        exts = list(set(set(exten_list)))
+        self.exten_counts = {str(i): exten_list.count(i) for i in exts}
         return
 
     def sc_plot(self, **kwds):
@@ -84,7 +118,7 @@ class image_dir:
             **kwds: Additional keyword arguments to
                     matplotlib.pyplot 's scatter function
         """
-        plt.scatter(self.width_list, self.height_list, alpha=0.5)
+        plt.scatter(self.width_list, self.height_list, **kwds)
         plt.show()
 
     def width_plot(self, **kwds):
@@ -94,7 +128,7 @@ class image_dir:
             **kwds: Additional keyword arguments to
                     matplotlib.pyplot 's hist function
         """
-        plt.hist(self.width_list)
+        plt.hist(self.width_list, **kwds)
         plt.show()
 
     def height_plot(self, **kwds):
@@ -105,4 +139,16 @@ class image_dir:
                     matplotlib.pyplot 's hist function
         """
         plt.hist(self.height_list, **kwds)
+        plt.show()
+
+    def exten_plot(self, **kwds):
+        """
+        bar plot for the image extensions
+        Args:
+            **kwds: Additional keyword arguments to
+                    matplotlib.pyplot 's bar function
+        """
+        exts = list(self.exten_counts.keys())
+        counts = list(self.exten_counts.values())
+        plt.bar(exts, counts, **kwds)
         plt.show()
