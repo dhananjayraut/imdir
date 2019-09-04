@@ -1,16 +1,22 @@
-# imdir
 [![Actions Status](https://github.com/dhananjayraut/imdir/workflows/Python%20package/badge.svg)](https://github.com/dhananjayraut/imdir/actions)  
-a simple python package to analyse a directory full of images  
-How many times you want to see what all types of images have in a directory
-this simple package just helps with that
+![PyPI page](https://pypi.org/project/imdir/)  
 
-### WIP
+# imdir 
+
+a simple python package to analyse a directory full of images
 
 ## Installation
+
+stable version from pypi
+```
+pip install imdir
+```
+
+### or latest from master branch
 ```bash
 pip install git+https://github.com/dhananjayraut/imdir
 ```
-### dependencies
+### Dependencies
 
 * matplotlib
 * pillow
@@ -27,5 +33,8 @@ imdir.height_plot() # plot height as histogram using matplotlib
 ```
 
 ## Documentation
+```python
+help(imdir.image_dir)
+```
 
-___
+### Work In progress

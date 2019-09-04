@@ -6,7 +6,7 @@ with open("./README.md", "r") as fh:
 
 setuptools.setup(
     name='imdir',
-    version='0.1.dev2',
+    version='0.0.dev1',
     author="Dhananjay Raut",
     author_email="rautdhananjay33@gmail.com",
     description="A package to analyse a directory full of images",
