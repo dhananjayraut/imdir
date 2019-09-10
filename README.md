@@ -1,7 +1,8 @@
 [![Actions Status](https://github.com/dhananjayraut/imdir/workflows/Python%20package/badge.svg)](https://github.com/dhananjayraut/imdir/actions)  
-![PyPI page](https://pypi.org/project/imdir/)  
+
 
 # imdir 
+### [PyPI page](https://pypi.org/project/imdir/)  
 
 a simple python package to analyse a directory full of images
 
