@@ -96,5 +96,3 @@ or see help for the image_dir class
 ```python
 help(imdir.image_dir)
 ```
-
-### Work In progress
