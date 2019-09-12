@@ -1,12 +1,21 @@
 # imdir
 
-## [PyPI page](https://pypi.org/project/imdir/) [![Actions Status](https://github.com/dhananjayraut/imdir/workflows/Python%20package/badge.svg)](https://github.com/dhananjayraut/imdir/actions)
+[![Actions Status](https://github.com/dhananjayraut/imdir/workflows/Python%20package/badge.svg)](https://github.com/dhananjayraut/imdir/actions) [![PyPI version](https://badge.fury.io/py/imdir.svg)](https://pypi.org/project/imdir/) [![Python 3.6](https://img.shields.io/pypi/pyversions/imdir.svg)](https://pypi.org/project/imdir/)
 
 a simple python package to analyse a directory full of images
 
+## Features
+
+- Easy Interface to remember
+- Analyse distribution of height, width, extensions etc.
+- Multithreaded for faster execution
+- high customizability for plots
+- Detects corupt files (WIP)
+- well tested on diffrent platforms
+
 ## Installation
 
-stable version from pypi
+stable version from pypi [page](https://pypi.org/project/imdir/)
 
 ``` bash
 pip install imdir
@@ -20,8 +29,8 @@ pip install git+https://github.com/dhananjayraut/imdir
 
 ### Dependencies
 
-* matplotlib
-* pillow
+- matplotlib
+- pillow
 
 ## Usage / example
 
@@ -93,6 +102,7 @@ width_plot(self, **kwds)
 ```
 
 or see help for the image_dir class
+
 ```python
 help(imdir.image_dir)
 ```
