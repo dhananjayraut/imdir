@@ -14,13 +14,6 @@ a simple python package to analyse a directory full of images
 - well tested on diffrent platforms
 
 ## Installation
-```bash
-pip install git+https://github.com/dhananjayraut/imdir
-```
-### dependencies
-
-* matplotlib
-* pillow
 
 stable version from pypi [page](https://pypi.org/project/imdir/)
 
