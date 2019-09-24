@@ -1,0 +1,574 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.6.3" />
+<title>imdir API documentation</title>
+<meta name="description" content="a simple python package to analyse a directory full of images …" />
+<link href='https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.0/normalize.min.css' rel='stylesheet'>
+<link href='https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/8.0.0/sanitize.min.css' rel='stylesheet'>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css" rel="stylesheet">
+<style>.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{font-weight:bold}#index h4 + ul{margin-bottom:.6em}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase;cursor:pointer}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>imdir</code></h1>
+</header>
+<section id="section-intro">
+<p>a simple python package to analyse a directory full of images</p>
+<p><strong>repository at</strong> : <a href="https://github.com/dhananjayraut/imdir/">https://github.com/dhananjayraut/imdir/</a> <br>
+<strong>documentation at</strong> : <a href="https://github.com/dhananjayraut/imdir/">https://github.com/dhananjayraut/imdir/</a></p>
+<h3 id="features">features:</h3>
+<pre><code>* Easy Interface to remember
+* Analyse distribution of height, width, extensions etc.
+* Multithreaded for faster execution
+* high customizability for plots
+* Detects corupt files
+* well tested on diffrent platforms
+</code></pre>
+<h3 id="example">example:</h3>
+<pre><code>from imdir import image_dir
+
+im_dir = image_dir(path=&quot;../input/train/&quot;,recursive=True, nthreads=4)
+
+imdir.sc_plot(alpha=0.5) # plot height and width as scatter plot
+</code></pre>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">&#34;&#34;&#34;
+a simple python package to analyse a directory full of images
+
+**repository at** : https://github.com/dhananjayraut/imdir/ &lt;br&gt;
+**documentation at** : https://github.com/dhananjayraut/imdir/
+
+### features:
+```
+* Easy Interface to remember
+* Analyse distribution of height, width, extensions etc.
+* Multithreaded for faster execution
+* high customizability for plots
+* Detects corupt files
+* well tested on diffrent platforms
+```
+
+### example:
+```
+from imdir import image_dir
+
+im_dir = image_dir(path=&#34;../input/train/&#34;,recursive=True, nthreads=4)
+
+imdir.sc_plot(alpha=0.5) # plot height and width as scatter plot
+```
+
+&#34;&#34;&#34;
+
+import os
+from PIL import Image
+from multiprocessing import Pool, cpu_count
+import matplotlib.pyplot as plt
+
+_IMG_EXTENSIONS = (
+    &#34;.jpg&#34;,
+    &#34;.jpeg&#34;,
+    &#34;.png&#34;,
+    &#34;.ppm&#34;,
+    &#34;.bmp&#34;,
+    &#34;.pgm&#34;,
+    &#34;.tif&#34;,
+    &#34;.tiff&#34;,
+    &#34;.webp&#34;,
+)
+
+
+def _has_file_allowed_extension(filename, extensions):
+    &#34;&#34;&#34;Checks if a file is an allowed extension.
+    Args:
+        filename (string): path to a file
+        extensions (tuple of strings): extensions to consider (lowercase)
+    Returns:
+        bool: True if the filename ends with one of given extensions
+    &#34;&#34;&#34;
+    return filename.lower().endswith(extensions)
+
+
+def _is_image_file(filename):
+    &#34;&#34;&#34;Checks if a file is an allowed image extension.
+    Args:
+        filename (string): path to a file
+    Returns:
+        bool: True if the filename ends with a known image extension
+    &#34;&#34;&#34;
+    return _has_file_allowed_extension(filename, _IMG_EXTENSIONS)
+
+
+def _list_files(path=&#34;./&#34;, recursive=False):
+    &#34;&#34;&#34;Returns the list of filepaths for image files in given folder
+    Args:
+        path (string): path to the folder
+        recursive (Boolean): whether to discover all sub directories
+    Returns:
+       list: list of paths of all image files in that folder
+    &#34;&#34;&#34;
+    if recursive is False:
+        file_list = [
+            os.path.join(path, f)
+            for f in os.listdir(path)
+            if os.path.isfile(os.path.join(path, f))
+        ]
+    else:
+        file_list = []
+        for folder, subs, files in os.walk(path):
+            for filename in files:
+                file_list.append(os.path.join(folder, filename))
+    image_file_list = [f for f in file_list if _is_image_file(f)]
+    return image_file_list
+
+
+def _get_dimension(image_path):
+    &#34;&#34;&#34; Gets the dimension of one image
+    Args:
+        image_path (string): path to the image
+    Returns:
+       list: list of paths of all image files in that folder
+    &#34;&#34;&#34;
+    width, height = -1, -1
+    try:
+        width, height = list(Image.open(image_path).size)
+    except:
+        print(&#34;Error Ocured with file &#34; + image_path)
+    finally:
+        return [width, height]
+
+
+def _get_dimensions(image_path_list, nthreads=-1):
+    &#34;&#34;&#34;get dimensions of list of images
+    Args:
+       image_path_list (list): list containing paths of image files
+    Returns:
+       list: list of paths of all image files in that folder
+    Note:- Returns -1, -1 for corrupt files.
+    &#34;&#34;&#34;
+
+    if nthreads == 0:
+        dims = [_get_dimension(f) for f in image_path_list]
+    else:
+        if nthreads == -1:
+            nthreads = cpu_count()
+        with Pool(nthreads) as p:
+            dims = p.map(_get_dimension, image_path_list)
+    return [f[0] for f in dims], [f[1] for f in dims]
+
+
+def _get_extensions(image_path_list):
+    &#34;&#34;&#34;get extensions of list of images
+    Args:
+       image_path_list (list): list containing paths of image files
+    Returns:
+       list: list of extensions of all image files in that folder
+    &#34;&#34;&#34;
+    return [str(f).split(&#34;.&#34;)[-1] for f in image_path_list]
+
+
+def _correct_them(fl, wl, hl):
+    &#34;&#34;&#34;Checks for corrupt files using dimensions
+    Args:
+        fl (list): list containing paths of image files
+        wl (list): list containing width of image files
+        hl (list): list containing heights of image files
+    Returns:
+       list: list of extensions of all image files in that folder
+    &#34;&#34;&#34;
+    file_list, corrupt_list = [], []
+    width_list, height_list = [], []
+
+    for i, width in enumerate(wl):
+        if width == -1:
+            corrupt_list.append(fl[i])
+        else:
+            width_list.append(wl[i])
+            height_list.append(hl[i])
+            file_list.append(fl[i])
+
+    return file_list, corrupt_list, width_list, height_list
+
+
+class image_dir:
+    
+    &#34;&#34;&#34;
+    image directory class
+
+    &#34;&#34;&#34;
+    def __init__(self, path, recursive=False, nthreads=-1):
+        &#34;&#34;&#34;
+        Args:
+            path (str): path for the directory
+            recursive (Boolean): whether to discover all sub directories
+                                 default False
+            nthreads (int): Number of Processes to use&lt;br&gt;
+                            -1 (default) means use all cpu cores&lt;br&gt;
+                            0  means do it in main thread (slow)
+        Returns:
+            a image_dir object
+        &#34;&#34;&#34;
+        self.exten_counts = {}
+        &#34;&#34;&#34;(dict) extension counts dictionary&#34;&#34;&#34;
+        self.file_list = []
+        &#34;&#34;&#34;(list) list of valid file paths&#34;&#34;&#34;
+        self.corrupt_file_list = []
+        &#34;&#34;&#34;(list) list of corrupt file paths&#34;&#34;&#34;
+        self.width_list = []
+        &#34;&#34;&#34;(list) list of width of images&#34;&#34;&#34;
+        self.height_list = []
+        &#34;&#34;&#34;(list) list of height of images&#34;&#34;&#34;
+
+        filelist = _list_files(path, recursive)
+        widthlist, heightlist = _get_dimensions(filelist, nthreads)
+        fl, cl, wl, hl = _correct_them(filelist, widthlist, heightlist)
+        self.file_list, self.corrupt_file_list = fl, cl
+        self.width_list, self.height_list = wl, hl
+        exten_list = _get_extensions(self.file_list)
+        exts = list(set(set(exten_list)))
+        self.exten_counts = {str(i): exten_list.count(i) for i in exts}
+        return
+
+    def sc_plot(self, **kwds):
+        &#34;&#34;&#34;
+        Scatter plot for the image dimensions
+
+        Args:
+            **kwds: Additional keyword arguments to
+                    matplotlib.pyplot &#39;s scatter function
+        &#34;&#34;&#34;
+        plt.scatter(self.width_list, self.height_list, **kwds)
+        plt.show()
+
+    def width_plot(self, **kwds):
+        &#34;&#34;&#34;
+        histogram plot for the image widths.
+        
+        Args:
+            **kwds: Additional keyword arguments to
+                    matplotlib.pyplot &#39;s hist function
+        &#34;&#34;&#34;
+        plt.hist(self.width_list, **kwds)
+        plt.show()
+
+    def height_plot(self, **kwds):
+        &#34;&#34;&#34;
+        histogram plot for the image heights.
+
+        Args:
+            **kwds: Additional keyword arguments to
+                    matplotlib.pyplot &#39;s hist function
+        &#34;&#34;&#34;
+        plt.hist(self.height_list, **kwds)
+        plt.show()
+
+    def exten_plot(self, **kwds):
+        &#34;&#34;&#34;
+        bar plot for the image extension counts.
+
+        Args:
+            **kwds: Additional keyword arguments to
+                    matplotlib.pyplot &#39;s bar function
+        &#34;&#34;&#34;
+        exts = list(self.exten_counts.keys())
+        counts = list(self.exten_counts.values())
+        plt.bar(exts, counts, **kwds)
+        plt.show()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="imdir.image_dir"><code class="flex name class">
+<span>class <span class="ident">image_dir</span></span>
+<span>(</span><span>path, recursive=False, nthreads=-1)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>image directory class</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>path</code></strong> :&ensp;<code>str</code></dt>
+<dd>path for the directory</dd>
+<dt><strong><code>recursive</code></strong> :&ensp;<code>Boolean</code></dt>
+<dd>whether to discover all sub directories
+default False</dd>
+<dt><strong><code>nthreads</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of Processes to use<br>
+-1 (default) means use all cpu cores<br>
+0
+means do it in main thread (slow)</dd>
+</dl>
+<h2 id="returns">Returns</h2>
+<dl>
+<dt><code>a</code> <a title="imdir.image_dir" href="#imdir.image_dir"><code>image_dir</code></a> <code>object</code></dt>
+<dd>&nbsp;</dd>
+</dl></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">class image_dir:
+    
+    &#34;&#34;&#34;
+    image directory class
+
+    &#34;&#34;&#34;
+    def __init__(self, path, recursive=False, nthreads=-1):
+        &#34;&#34;&#34;
+        Args:
+            path (str): path for the directory
+            recursive (Boolean): whether to discover all sub directories
+                                 default False
+            nthreads (int): Number of Processes to use&lt;br&gt;
+                            -1 (default) means use all cpu cores&lt;br&gt;
+                            0  means do it in main thread (slow)
+        Returns:
+            a image_dir object
+        &#34;&#34;&#34;
+        self.exten_counts = {}
+        &#34;&#34;&#34;(dict) extension counts dictionary&#34;&#34;&#34;
+        self.file_list = []
+        &#34;&#34;&#34;(list) list of valid file paths&#34;&#34;&#34;
+        self.corrupt_file_list = []
+        &#34;&#34;&#34;(list) list of corrupt file paths&#34;&#34;&#34;
+        self.width_list = []
+        &#34;&#34;&#34;(list) list of width of images&#34;&#34;&#34;
+        self.height_list = []
+        &#34;&#34;&#34;(list) list of height of images&#34;&#34;&#34;
+
+        filelist = _list_files(path, recursive)
+        widthlist, heightlist = _get_dimensions(filelist, nthreads)
+        fl, cl, wl, hl = _correct_them(filelist, widthlist, heightlist)
+        self.file_list, self.corrupt_file_list = fl, cl
+        self.width_list, self.height_list = wl, hl
+        exten_list = _get_extensions(self.file_list)
+        exts = list(set(set(exten_list)))
+        self.exten_counts = {str(i): exten_list.count(i) for i in exts}
+        return
+
+    def sc_plot(self, **kwds):
+        &#34;&#34;&#34;
+        Scatter plot for the image dimensions
+
+        Args:
+            **kwds: Additional keyword arguments to
+                    matplotlib.pyplot &#39;s scatter function
+        &#34;&#34;&#34;
+        plt.scatter(self.width_list, self.height_list, **kwds)
+        plt.show()
+
+    def width_plot(self, **kwds):
+        &#34;&#34;&#34;
+        histogram plot for the image widths.
+        
+        Args:
+            **kwds: Additional keyword arguments to
+                    matplotlib.pyplot &#39;s hist function
+        &#34;&#34;&#34;
+        plt.hist(self.width_list, **kwds)
+        plt.show()
+
+    def height_plot(self, **kwds):
+        &#34;&#34;&#34;
+        histogram plot for the image heights.
+
+        Args:
+            **kwds: Additional keyword arguments to
+                    matplotlib.pyplot &#39;s hist function
+        &#34;&#34;&#34;
+        plt.hist(self.height_list, **kwds)
+        plt.show()
+
+    def exten_plot(self, **kwds):
+        &#34;&#34;&#34;
+        bar plot for the image extension counts.
+
+        Args:
+            **kwds: Additional keyword arguments to
+                    matplotlib.pyplot &#39;s bar function
+        &#34;&#34;&#34;
+        exts = list(self.exten_counts.keys())
+        counts = list(self.exten_counts.values())
+        plt.bar(exts, counts, **kwds)
+        plt.show()</code></pre>
+</details>
+<h3>Instance variables</h3>
+<dl>
+<dt id="imdir.image_dir.corrupt_file_list"><code class="name">var <span class="ident">corrupt_file_list</span></code></dt>
+<dd>
+<section class="desc"><p>(list) list of corrupt file paths</p></section>
+</dd>
+<dt id="imdir.image_dir.exten_counts"><code class="name">var <span class="ident">exten_counts</span></code></dt>
+<dd>
+<section class="desc"><p>(dict) extension counts dictionary</p></section>
+</dd>
+<dt id="imdir.image_dir.file_list"><code class="name">var <span class="ident">file_list</span></code></dt>
+<dd>
+<section class="desc"><p>(list) list of valid file paths</p></section>
+</dd>
+<dt id="imdir.image_dir.height_list"><code class="name">var <span class="ident">height_list</span></code></dt>
+<dd>
+<section class="desc"><p>(list) list of height of images</p></section>
+</dd>
+<dt id="imdir.image_dir.width_list"><code class="name">var <span class="ident">width_list</span></code></dt>
+<dd>
+<section class="desc"><p>(list) list of width of images</p></section>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="imdir.image_dir.exten_plot"><code class="name flex">
+<span>def <span class="ident">exten_plot</span></span>(<span>self, **kwds)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>bar plot for the image extension counts.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>**kwds</code></strong></dt>
+<dd>Additional keyword arguments to
+matplotlib.pyplot 's bar function</dd>
+</dl></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def exten_plot(self, **kwds):
+    &#34;&#34;&#34;
+    bar plot for the image extension counts.
+
+    Args:
+        **kwds: Additional keyword arguments to
+                matplotlib.pyplot &#39;s bar function
+    &#34;&#34;&#34;
+    exts = list(self.exten_counts.keys())
+    counts = list(self.exten_counts.values())
+    plt.bar(exts, counts, **kwds)
+    plt.show()</code></pre>
+</details>
+</dd>
+<dt id="imdir.image_dir.height_plot"><code class="name flex">
+<span>def <span class="ident">height_plot</span></span>(<span>self, **kwds)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>histogram plot for the image heights.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>**kwds</code></strong></dt>
+<dd>Additional keyword arguments to
+matplotlib.pyplot 's hist function</dd>
+</dl></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def height_plot(self, **kwds):
+    &#34;&#34;&#34;
+    histogram plot for the image heights.
+
+    Args:
+        **kwds: Additional keyword arguments to
+                matplotlib.pyplot &#39;s hist function
+    &#34;&#34;&#34;
+    plt.hist(self.height_list, **kwds)
+    plt.show()</code></pre>
+</details>
+</dd>
+<dt id="imdir.image_dir.sc_plot"><code class="name flex">
+<span>def <span class="ident">sc_plot</span></span>(<span>self, **kwds)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>Scatter plot for the image dimensions</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>**kwds</code></strong></dt>
+<dd>Additional keyword arguments to
+matplotlib.pyplot 's scatter function</dd>
+</dl></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def sc_plot(self, **kwds):
+    &#34;&#34;&#34;
+    Scatter plot for the image dimensions
+
+    Args:
+        **kwds: Additional keyword arguments to
+                matplotlib.pyplot &#39;s scatter function
+    &#34;&#34;&#34;
+    plt.scatter(self.width_list, self.height_list, **kwds)
+    plt.show()</code></pre>
+</details>
+</dd>
+<dt id="imdir.image_dir.width_plot"><code class="name flex">
+<span>def <span class="ident">width_plot</span></span>(<span>self, **kwds)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>histogram plot for the image widths.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>**kwds</code></strong></dt>
+<dd>Additional keyword arguments to
+matplotlib.pyplot 's hist function</dd>
+</dl></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def width_plot(self, **kwds):
+    &#34;&#34;&#34;
+    histogram plot for the image widths.
+    
+    Args:
+        **kwds: Additional keyword arguments to
+                matplotlib.pyplot &#39;s hist function
+    &#34;&#34;&#34;
+    plt.hist(self.width_list, **kwds)
+    plt.show()</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul>
+<li><a href="#features">features:</a></li>
+<li><a href="#example">example:</a></li>
+</ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="imdir.image_dir" href="#imdir.image_dir">image_dir</a></code></h4>
+<ul class="two-column">
+<li><code><a title="imdir.image_dir.corrupt_file_list" href="#imdir.image_dir.corrupt_file_list">corrupt_file_list</a></code></li>
+<li><code><a title="imdir.image_dir.exten_counts" href="#imdir.image_dir.exten_counts">exten_counts</a></code></li>
+<li><code><a title="imdir.image_dir.exten_plot" href="#imdir.image_dir.exten_plot">exten_plot</a></code></li>
+<li><code><a title="imdir.image_dir.file_list" href="#imdir.image_dir.file_list">file_list</a></code></li>
+<li><code><a title="imdir.image_dir.height_list" href="#imdir.image_dir.height_list">height_list</a></code></li>
+<li><code><a title="imdir.image_dir.height_plot" href="#imdir.image_dir.height_plot">height_plot</a></code></li>
+<li><code><a title="imdir.image_dir.sc_plot" href="#imdir.image_dir.sc_plot">sc_plot</a></code></li>
+<li><code><a title="imdir.image_dir.width_list" href="#imdir.image_dir.width_list">width_list</a></code></li>
+<li><code><a title="imdir.image_dir.width_plot" href="#imdir.image_dir.width_plot">width_plot</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.6.3</a>.</p>
+</footer>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad()</script>
+</body>
+</html>
