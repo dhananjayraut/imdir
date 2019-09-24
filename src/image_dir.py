@@ -55,8 +55,13 @@ def _get_dimension(image_path):
     Returns:
        list: list of paths of all image files in that folder
     """
-    image = Image.open(image_path)
-    return list(image.size)
+    width, height = -1, -1
+    try:
+        width, height = list(Image.open(image_path).size)
+    except:
+        print("Error Ocured with file " + image_path)
+    finally:
+        return [width, height]
 
 
 def _get_dimensions(image_path_list, nthreads=-1):
@@ -65,6 +70,7 @@ def _get_dimensions(image_path_list, nthreads=-1):
        image_path_list (list): list containing paths of image files
     Returns:
        list: list of paths of all image files in that folder
+    Note:- Returns -1, -1 for corrupt files.
     """
 
     if nthreads == 0:
@@ -87,6 +93,29 @@ def _get_extensions(image_path_list):
     return [str(f).split('.')[-1] for f in image_path_list]
 
 
+def _correct_them(fl, wl, hl):
+    """Checks for corrupt files using dimensions
+    Args:
+        fl (list): list containing paths of image files
+        wl (list): list containing width of image files
+        hl (list): list containing heights of image files
+    Returns:
+       list: list of extensions of all image files in that folder
+    """
+    file_list, corrupt_list = [], []
+    width_list, height_list = [], []
+
+    for i, width in enumerate(wl):
+        if width == -1:
+            corrupt_list.append(fl[i])
+        else:
+            width_list.append(wl[i])
+            height_list.append(hl[i])
+            file_list.append(fl[i])
+
+    return file_list, corrupt_list, width_list, height_list
+
+
 class image_dir:
     """
     image directory class
@@ -97,15 +126,17 @@ class image_dir:
             path (str): path for the directory
             recursive (Boolean): whether to discover all sub directories
                                  default False
-            nthreads (int): Number of threads used
+            nthreads (int): Number of Processes to use
                             -1 (default) means use all cpu cores
                             0  means do it in main thread (slow)
         Returns:
             a image_dir object
         """
-        self.file_list = _list_files(path, recursive)
-        self.width_list, self.height_list = _get_dimensions(self.file_list,
-                                                            nthreads)
+        filelist = _list_files(path, recursive)
+        widthlist, heightlist = _get_dimensions(filelist, nthreads)
+        fl, cl, wl, hl = _correct_them(filelist, widthlist, heightlist)
+        self.file_list, self.corrupt_file_list = fl, cl
+        self.width_list, self.height_list = wl, hl
         exten_list = _get_extensions(self.file_list)
         exts = list(set(set(exten_list)))
         self.exten_counts = {str(i): exten_list.count(i) for i in exts}
