@@ -10,7 +10,7 @@ a simple python package to analyse a directory full of images
 - Analyse distribution of height, width, extensions etc.
 - Multithreaded for faster execution
 - high customizability for plots
-- Detects corupt files (WIP)
+- Detects corupt files
 - well tested on diffrent platforms
 
 ## Installation
@@ -35,6 +35,7 @@ pip install git+https://github.com/dhananjayraut/imdir
 ## Usage / example
 
 ```python
+from imdir import image_dir
 # give path to class
 im_dir = image_dir(path="../input/train/",recursive=True, nthreads=4)
 
