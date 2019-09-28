@@ -30,6 +30,14 @@ def test_corrupt_files():
     assert im_dir.corrupt_file_list == ['./tests/images/text_file.jpg']
 
 
+def test_samples():
+    """
+    tests if file list is correct
+    """
+    im_dir = imdir.image_dir("./tests/images/", sample_size=2)
+    assert len(im_dir.file_list) + len(im_dir.corrupt_file_list) == 2
+
+
 def test_width():
     """
     tests if width list is correct
