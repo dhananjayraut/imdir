@@ -4,7 +4,7 @@ a simple python package to analyse a directory full of images
 **repository at** : https://github.com/dhananjayraut/imdir/ <br>
 **documentation at** : https://github.com/dhananjayraut/imdir/
 
-### features:
+features:
 ```
 * Easy Interface to remember
 * Analyse distribution of height, width, extensions etc.
@@ -14,7 +14,7 @@ a simple python package to analyse a directory full of images
 * well tested on diffrent platforms
 ```
 
-### example:
+example:
 ```
 from imdir import image_dir
 
@@ -26,6 +26,7 @@ imdir.sc_plot(alpha=0.5) # plot height and width as scatter plot
 """
 
 import os
+import random
 from PIL import Image
 from multiprocessing import Pool, cpu_count
 import matplotlib.pyplot as plt
@@ -156,7 +157,6 @@ def _correct_them(fl, wl, hl):
 
 
 class image_dir:
-    
     """
     image directory class
 
@@ -208,7 +208,7 @@ class image_dir:
     def width_plot(self, **kwds):
         """
         histogram plot for the image widths.
-        
+
         Args:
             **kwds: Additional keyword arguments to
                     matplotlib.pyplot 's hist function
@@ -238,4 +238,25 @@ class image_dir:
         exts = list(self.exten_counts.keys())
         counts = list(self.exten_counts.values())
         plt.bar(exts, counts, **kwds)
+        plt.show()
+
+    def plot_some_images(self, nrows, ncols, showpaths=False, **kwds):
+        """
+        plots random images from the directory in a grid.
+        Args:
+            nrows: (int) number of rows in grid.
+            ncols: (int) number of columns in grid
+            showpaths: (bool) whether to show paths as title
+                       default False
+            **kwds: Additional keyword arguments to
+                    matplotlib.pyplot 's bar function
+        """
+        fig, axes = plt.subplots(nrows, ncols)
+        images = random.sample(population=self.file_list, k=nrows*ncols)
+        for i in range(nrows):
+            for j in range(ncols):
+                axes[i, j].imshow(Image.open(images[(i*ncols)+(j)]))
+                if showpaths:
+                    axes[i, j].set_title(images[(i*ncols)+(j)])
+        plt.tight_layout()
         plt.show()

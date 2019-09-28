@@ -23,7 +23,7 @@
 <p>a simple python package to analyse a directory full of images</p>
 <p><strong>repository at</strong> : <a href="https://github.com/dhananjayraut/imdir/">https://github.com/dhananjayraut/imdir/</a> <br>
 <strong>documentation at</strong> : <a href="https://github.com/dhananjayraut/imdir/">https://github.com/dhananjayraut/imdir/</a></p>
-<h3 id="features">features:</h3>
+<p>features:</p>
 <pre><code>* Easy Interface to remember
 * Analyse distribution of height, width, extensions etc.
 * Multithreaded for faster execution
@@ -31,7 +31,7 @@
 * Detects corupt files
 * well tested on diffrent platforms
 </code></pre>
-<h3 id="example">example:</h3>
+<p>example:</p>
 <pre><code>from imdir import image_dir
 
 im_dir = image_dir(path=&quot;../input/train/&quot;,recursive=True, nthreads=4)
@@ -46,7 +46,7 @@ a simple python package to analyse a directory full of images
 **repository at** : https://github.com/dhananjayraut/imdir/ &lt;br&gt;
 **documentation at** : https://github.com/dhananjayraut/imdir/
 
-### features:
+features:
 ```
 * Easy Interface to remember
 * Analyse distribution of height, width, extensions etc.
@@ -56,7 +56,7 @@ a simple python package to analyse a directory full of images
 * well tested on diffrent platforms
 ```
 
-### example:
+example:
 ```
 from imdir import image_dir
 
@@ -68,6 +68,7 @@ imdir.sc_plot(alpha=0.5) # plot height and width as scatter plot
 &#34;&#34;&#34;
 
 import os
+import random
 from PIL import Image
 from multiprocessing import Pool, cpu_count
 import matplotlib.pyplot as plt
@@ -198,7 +199,6 @@ def _correct_them(fl, wl, hl):
 
 
 class image_dir:
-    
     &#34;&#34;&#34;
     image directory class
 
@@ -250,7 +250,7 @@ class image_dir:
     def width_plot(self, **kwds):
         &#34;&#34;&#34;
         histogram plot for the image widths.
-        
+
         Args:
             **kwds: Additional keyword arguments to
                     matplotlib.pyplot &#39;s hist function
@@ -280,6 +280,27 @@ class image_dir:
         exts = list(self.exten_counts.keys())
         counts = list(self.exten_counts.values())
         plt.bar(exts, counts, **kwds)
+        plt.show()
+
+    def plot_some_images(self, nrows, ncols, showpaths=False, **kwds):
+        &#34;&#34;&#34;
+        plots random images from the directory in a grid.
+        Args:
+            nrows: (int) number of rows in grid.
+            ncols: (int) number of columns in grid
+            showpaths: (bool) whether to show paths as title
+                       default False
+            **kwds: Additional keyword arguments to
+                    matplotlib.pyplot &#39;s bar function
+        &#34;&#34;&#34;
+        fig, axes = plt.subplots(nrows, ncols)
+        images = random.sample(population=self.file_list, k=nrows*ncols)
+        for i in range(nrows):
+            for j in range(ncols):
+                axes[i, j].imshow(Image.open(images[(i*ncols)+(j)]))
+                if showpaths:
+                    axes[i, j].set_title(images[(i*ncols)+(j)])
+        plt.tight_layout()
         plt.show()</code></pre>
 </details>
 </section>
@@ -319,7 +340,6 @@ means do it in main thread (slow)</dd>
 <details class="source">
 <summary>Source code</summary>
 <pre><code class="python">class image_dir:
-    
     &#34;&#34;&#34;
     image directory class
 
@@ -371,7 +391,7 @@ means do it in main thread (slow)</dd>
     def width_plot(self, **kwds):
         &#34;&#34;&#34;
         histogram plot for the image widths.
-        
+
         Args:
             **kwds: Additional keyword arguments to
                     matplotlib.pyplot &#39;s hist function
@@ -401,14 +421,31 @@ means do it in main thread (slow)</dd>
         exts = list(self.exten_counts.keys())
         counts = list(self.exten_counts.values())
         plt.bar(exts, counts, **kwds)
+        plt.show()
+
+    def plot_some_images(self, nrows, ncols, showpaths=False, **kwds):
+        &#34;&#34;&#34;
+        plots random images from the directory in a grid.
+        Args:
+            nrows: (int) number of rows in grid.
+            ncols: (int) number of columns in grid
+            showpaths: (bool) whether to show paths as title
+                       default False
+            **kwds: Additional keyword arguments to
+                    matplotlib.pyplot &#39;s bar function
+        &#34;&#34;&#34;
+        fig, axes = plt.subplots(nrows, ncols)
+        images = random.sample(population=self.file_list, k=nrows*ncols)
+        for i in range(nrows):
+            for j in range(ncols):
+                axes[i, j].imshow(Image.open(images[(i*ncols)+(j)]))
+                if showpaths:
+                    axes[i, j].set_title(images[(i*ncols)+(j)])
+        plt.tight_layout()
         plt.show()</code></pre>
 </details>
 <h3>Instance variables</h3>
 <dl>
-<dt id="imdir.image_dir.corrupt_file_list"><code class="name">var <span class="ident">corrupt_file_list</span></code></dt>
-<dd>
-<section class="desc"><p>(list) list of corrupt file paths</p></section>
-</dd>
 <dt id="imdir.image_dir.exten_counts"><code class="name">var <span class="ident">exten_counts</span></code></dt>
 <dd>
 <section class="desc"><p>(dict) extension counts dictionary</p></section>
@@ -417,69 +454,21 @@ means do it in main thread (slow)</dd>
 <dd>
 <section class="desc"><p>(list) list of valid file paths</p></section>
 </dd>
-<dt id="imdir.image_dir.height_list"><code class="name">var <span class="ident">height_list</span></code></dt>
+<dt id="imdir.image_dir.corrupt_file_list"><code class="name">var <span class="ident">corrupt_file_list</span></code></dt>
 <dd>
-<section class="desc"><p>(list) list of height of images</p></section>
+<section class="desc"><p>(list) list of corrupt file paths</p></section>
 </dd>
 <dt id="imdir.image_dir.width_list"><code class="name">var <span class="ident">width_list</span></code></dt>
 <dd>
 <section class="desc"><p>(list) list of width of images</p></section>
 </dd>
+<dt id="imdir.image_dir.height_list"><code class="name">var <span class="ident">height_list</span></code></dt>
+<dd>
+<section class="desc"><p>(list) list of height of images</p></section>
+</dd>
 </dl>
 <h3>Methods</h3>
 <dl>
-<dt id="imdir.image_dir.exten_plot"><code class="name flex">
-<span>def <span class="ident">exten_plot</span></span>(<span>self, **kwds)</span>
-</code></dt>
-<dd>
-<section class="desc"><p>bar plot for the image extension counts.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>**kwds</code></strong></dt>
-<dd>Additional keyword arguments to
-matplotlib.pyplot 's bar function</dd>
-</dl></section>
-<details class="source">
-<summary>Source code</summary>
-<pre><code class="python">def exten_plot(self, **kwds):
-    &#34;&#34;&#34;
-    bar plot for the image extension counts.
-
-    Args:
-        **kwds: Additional keyword arguments to
-                matplotlib.pyplot &#39;s bar function
-    &#34;&#34;&#34;
-    exts = list(self.exten_counts.keys())
-    counts = list(self.exten_counts.values())
-    plt.bar(exts, counts, **kwds)
-    plt.show()</code></pre>
-</details>
-</dd>
-<dt id="imdir.image_dir.height_plot"><code class="name flex">
-<span>def <span class="ident">height_plot</span></span>(<span>self, **kwds)</span>
-</code></dt>
-<dd>
-<section class="desc"><p>histogram plot for the image heights.</p>
-<h2 id="args">Args</h2>
-<dl>
-<dt><strong><code>**kwds</code></strong></dt>
-<dd>Additional keyword arguments to
-matplotlib.pyplot 's hist function</dd>
-</dl></section>
-<details class="source">
-<summary>Source code</summary>
-<pre><code class="python">def height_plot(self, **kwds):
-    &#34;&#34;&#34;
-    histogram plot for the image heights.
-
-    Args:
-        **kwds: Additional keyword arguments to
-                matplotlib.pyplot &#39;s hist function
-    &#34;&#34;&#34;
-    plt.hist(self.height_list, **kwds)
-    plt.show()</code></pre>
-</details>
-</dd>
 <dt id="imdir.image_dir.sc_plot"><code class="name flex">
 <span>def <span class="ident">sc_plot</span></span>(<span>self, **kwds)</span>
 </code></dt>
@@ -521,12 +510,106 @@ matplotlib.pyplot 's hist function</dd>
 <pre><code class="python">def width_plot(self, **kwds):
     &#34;&#34;&#34;
     histogram plot for the image widths.
-    
+
     Args:
         **kwds: Additional keyword arguments to
                 matplotlib.pyplot &#39;s hist function
     &#34;&#34;&#34;
     plt.hist(self.width_list, **kwds)
+    plt.show()</code></pre>
+</details>
+</dd>
+<dt id="imdir.image_dir.height_plot"><code class="name flex">
+<span>def <span class="ident">height_plot</span></span>(<span>self, **kwds)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>histogram plot for the image heights.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>**kwds</code></strong></dt>
+<dd>Additional keyword arguments to
+matplotlib.pyplot 's hist function</dd>
+</dl></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def height_plot(self, **kwds):
+    &#34;&#34;&#34;
+    histogram plot for the image heights.
+
+    Args:
+        **kwds: Additional keyword arguments to
+                matplotlib.pyplot &#39;s hist function
+    &#34;&#34;&#34;
+    plt.hist(self.height_list, **kwds)
+    plt.show()</code></pre>
+</details>
+</dd>
+<dt id="imdir.image_dir.exten_plot"><code class="name flex">
+<span>def <span class="ident">exten_plot</span></span>(<span>self, **kwds)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>bar plot for the image extension counts.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>**kwds</code></strong></dt>
+<dd>Additional keyword arguments to
+matplotlib.pyplot 's bar function</dd>
+</dl></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def exten_plot(self, **kwds):
+    &#34;&#34;&#34;
+    bar plot for the image extension counts.
+
+    Args:
+        **kwds: Additional keyword arguments to
+                matplotlib.pyplot &#39;s bar function
+    &#34;&#34;&#34;
+    exts = list(self.exten_counts.keys())
+    counts = list(self.exten_counts.values())
+    plt.bar(exts, counts, **kwds)
+    plt.show()</code></pre>
+</details>
+</dd>
+<dt id="imdir.image_dir.plot_some_images"><code class="name flex">
+<span>def <span class="ident">plot_some_images</span></span>(<span>self, nrows, ncols, showpaths=False, **kwds)</span>
+</code></dt>
+<dd>
+<section class="desc"><p>plots random images from the directory in a grid.</p>
+<h2 id="args">Args</h2>
+<dl>
+<dt><strong><code>nrows</code></strong></dt>
+<dd>(int) number of rows in grid.</dd>
+<dt><strong><code>ncols</code></strong></dt>
+<dd>(int) number of columns in grid</dd>
+<dt><strong><code>showpaths</code></strong></dt>
+<dd>(bool) whether to show paths as title
+default False</dd>
+<dt><strong><code>**kwds</code></strong></dt>
+<dd>Additional keyword arguments to
+matplotlib.pyplot 's bar function</dd>
+</dl></section>
+<details class="source">
+<summary>Source code</summary>
+<pre><code class="python">def plot_some_images(self, nrows, ncols, showpaths=False, **kwds):
+    &#34;&#34;&#34;
+    plots random images from the directory in a grid.
+    Args:
+        nrows: (int) number of rows in grid.
+        ncols: (int) number of columns in grid
+        showpaths: (bool) whether to show paths as title
+                   default False
+        **kwds: Additional keyword arguments to
+                matplotlib.pyplot &#39;s bar function
+    &#34;&#34;&#34;
+    fig, axes = plt.subplots(nrows, ncols)
+    images = random.sample(population=self.file_list, k=nrows*ncols)
+    for i in range(nrows):
+        for j in range(ncols):
+            axes[i, j].imshow(Image.open(images[(i*ncols)+(j)]))
+            if showpaths:
+                axes[i, j].set_title(images[(i*ncols)+(j)])
+    plt.tight_layout()
     plt.show()</code></pre>
 </details>
 </dd>
@@ -538,10 +621,7 @@ matplotlib.pyplot 's hist function</dd>
 <nav id="sidebar">
 <h1>Index</h1>
 <div class="toc">
-<ul>
-<li><a href="#features">features:</a></li>
-<li><a href="#example">example:</a></li>
-</ul>
+<ul></ul>
 </div>
 <ul id="index">
 <li><h3><a href="#header-classes">Classes</a></h3>
@@ -549,15 +629,16 @@ matplotlib.pyplot 's hist function</dd>
 <li>
 <h4><code><a title="imdir.image_dir" href="#imdir.image_dir">image_dir</a></code></h4>
 <ul class="two-column">
-<li><code><a title="imdir.image_dir.corrupt_file_list" href="#imdir.image_dir.corrupt_file_list">corrupt_file_list</a></code></li>
-<li><code><a title="imdir.image_dir.exten_counts" href="#imdir.image_dir.exten_counts">exten_counts</a></code></li>
-<li><code><a title="imdir.image_dir.exten_plot" href="#imdir.image_dir.exten_plot">exten_plot</a></code></li>
-<li><code><a title="imdir.image_dir.file_list" href="#imdir.image_dir.file_list">file_list</a></code></li>
-<li><code><a title="imdir.image_dir.height_list" href="#imdir.image_dir.height_list">height_list</a></code></li>
-<li><code><a title="imdir.image_dir.height_plot" href="#imdir.image_dir.height_plot">height_plot</a></code></li>
 <li><code><a title="imdir.image_dir.sc_plot" href="#imdir.image_dir.sc_plot">sc_plot</a></code></li>
-<li><code><a title="imdir.image_dir.width_list" href="#imdir.image_dir.width_list">width_list</a></code></li>
 <li><code><a title="imdir.image_dir.width_plot" href="#imdir.image_dir.width_plot">width_plot</a></code></li>
+<li><code><a title="imdir.image_dir.height_plot" href="#imdir.image_dir.height_plot">height_plot</a></code></li>
+<li><code><a title="imdir.image_dir.exten_plot" href="#imdir.image_dir.exten_plot">exten_plot</a></code></li>
+<li><code><a title="imdir.image_dir.plot_some_images" href="#imdir.image_dir.plot_some_images">plot_some_images</a></code></li>
+<li><code><a title="imdir.image_dir.exten_counts" href="#imdir.image_dir.exten_counts">exten_counts</a></code></li>
+<li><code><a title="imdir.image_dir.file_list" href="#imdir.image_dir.file_list">file_list</a></code></li>
+<li><code><a title="imdir.image_dir.corrupt_file_list" href="#imdir.image_dir.corrupt_file_list">corrupt_file_list</a></code></li>
+<li><code><a title="imdir.image_dir.width_list" href="#imdir.image_dir.width_list">width_list</a></code></li>
+<li><code><a title="imdir.image_dir.height_list" href="#imdir.image_dir.height_list">height_list</a></code></li>
 </ul>
 </li>
 </ul>
