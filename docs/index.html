@@ -203,7 +203,7 @@ class image_dir:
     image directory class
 
     &#34;&#34;&#34;
-    def __init__(self, path, recursive=False, nthreads=-1):
+    def __init__(self, path, recursive=False, nthreads=-1, sample_size=-1):
         &#34;&#34;&#34;
         Args:
             path (str): path for the directory
@@ -212,8 +212,13 @@ class image_dir:
             nthreads (int): Number of Processes to use&lt;br&gt;
                             -1 (default) means use all cpu cores&lt;br&gt;
                             0  means do it in main thread (slow)
+            sample_size (int): Number of images to consider &lt;br&gt;
+                               -1 (default) means all images.
         Returns:
             a image_dir object
+        Note: 
+               for sample_size random sampling is applied before getting image  
+               sizes hence some corrupt file may be present in the sample.
         &#34;&#34;&#34;
         self.exten_counts = {}
         &#34;&#34;&#34;(dict) extension counts dictionary&#34;&#34;&#34;
@@ -227,6 +232,8 @@ class image_dir:
         &#34;&#34;&#34;(list) list of height of images&#34;&#34;&#34;
 
         filelist = _list_files(path, recursive)
+        if sample_size != -1:
+            filelist = random.sample(filelist, sample_size)
         widthlist, heightlist = _get_dimensions(filelist, nthreads)
         fl, cl, wl, hl = _correct_them(filelist, widthlist, heightlist)
         self.file_list, self.corrupt_file_list = fl, cl
@@ -286,10 +293,10 @@ class image_dir:
         &#34;&#34;&#34;
         plots random images from the directory in a grid.
         Args:
-            nrows: (int) number of rows in grid.
-            ncols: (int) number of columns in grid
-            showpaths: (bool) whether to show paths as title
-                       default False
+            nrows (int):  number of rows in grid.
+            ncols (int):  number of columns in grid
+            showpaths (bool):  whether to show paths as title
+                               default False
             **kwds: Additional keyword arguments to
                     matplotlib.pyplot &#39;s bar function
         &#34;&#34;&#34;
@@ -315,7 +322,7 @@ class image_dir:
 <dl>
 <dt id="imdir.image_dir"><code class="flex name class">
 <span>class <span class="ident">image_dir</span></span>
-<span>(</span><span>path, recursive=False, nthreads=-1)</span>
+<span>(</span><span>path, recursive=False, nthreads=-1, sample_size=-1)</span>
 </code></dt>
 <dd>
 <section class="desc"><p>image directory class</p>
@@ -331,11 +338,17 @@ default False</dd>
 -1 (default) means use all cpu cores<br>
 0
 means do it in main thread (slow)</dd>
+<dt><strong><code>sample_size</code></strong> :&ensp;<code>int</code></dt>
+<dd>Number of images to consider <br>
+-1 (default) means all images.</dd>
 </dl>
 <h2 id="returns">Returns</h2>
 <dl>
 <dt><code>a</code> <a title="imdir.image_dir" href="#imdir.image_dir"><code>image_dir</code></a> <code>object</code></dt>
 <dd>&nbsp;</dd>
+<dt><strong><code>Note</code></strong></dt>
+<dd>for sample_size random sampling is applied before getting image<br>
+sizes hence some corrupt file may be present in the sample.</dd>
 </dl></section>
 <details class="source">
 <summary>Source code</summary>
@@ -344,7 +357,7 @@ means do it in main thread (slow)</dd>
     image directory class
 
     &#34;&#34;&#34;
-    def __init__(self, path, recursive=False, nthreads=-1):
+    def __init__(self, path, recursive=False, nthreads=-1, sample_size=-1):
         &#34;&#34;&#34;
         Args:
             path (str): path for the directory
@@ -353,8 +366,13 @@ means do it in main thread (slow)</dd>
             nthreads (int): Number of Processes to use&lt;br&gt;
                             -1 (default) means use all cpu cores&lt;br&gt;
                             0  means do it in main thread (slow)
+            sample_size (int): Number of images to consider &lt;br&gt;
+                               -1 (default) means all images.
         Returns:
             a image_dir object
+        Note: 
+               for sample_size random sampling is applied before getting image  
+               sizes hence some corrupt file may be present in the sample.
         &#34;&#34;&#34;
         self.exten_counts = {}
         &#34;&#34;&#34;(dict) extension counts dictionary&#34;&#34;&#34;
@@ -368,6 +386,8 @@ means do it in main thread (slow)</dd>
         &#34;&#34;&#34;(list) list of height of images&#34;&#34;&#34;
 
         filelist = _list_files(path, recursive)
+        if sample_size != -1:
+            filelist = random.sample(filelist, sample_size)
         widthlist, heightlist = _get_dimensions(filelist, nthreads)
         fl, cl, wl, hl = _correct_them(filelist, widthlist, heightlist)
         self.file_list, self.corrupt_file_list = fl, cl
@@ -427,10 +447,10 @@ means do it in main thread (slow)</dd>
         &#34;&#34;&#34;
         plots random images from the directory in a grid.
         Args:
-            nrows: (int) number of rows in grid.
-            ncols: (int) number of columns in grid
-            showpaths: (bool) whether to show paths as title
-                       default False
+            nrows (int):  number of rows in grid.
+            ncols (int):  number of columns in grid
+            showpaths (bool):  whether to show paths as title
+                               default False
             **kwds: Additional keyword arguments to
                     matplotlib.pyplot &#39;s bar function
         &#34;&#34;&#34;
@@ -578,12 +598,12 @@ matplotlib.pyplot 's bar function</dd>
 <section class="desc"><p>plots random images from the directory in a grid.</p>
 <h2 id="args">Args</h2>
 <dl>
-<dt><strong><code>nrows</code></strong></dt>
-<dd>(int) number of rows in grid.</dd>
-<dt><strong><code>ncols</code></strong></dt>
-<dd>(int) number of columns in grid</dd>
-<dt><strong><code>showpaths</code></strong></dt>
-<dd>(bool) whether to show paths as title
+<dt><strong><code>nrows</code></strong> :&ensp;<code>int</code></dt>
+<dd>number of rows in grid.</dd>
+<dt><strong><code>ncols</code></strong> :&ensp;<code>int</code></dt>
+<dd>number of columns in grid</dd>
+<dt><strong><code>showpaths</code></strong> :&ensp;<code>bool</code></dt>
+<dd>whether to show paths as title
 default False</dd>
 <dt><strong><code>**kwds</code></strong></dt>
 <dd>Additional keyword arguments to
@@ -595,10 +615,10 @@ matplotlib.pyplot 's bar function</dd>
     &#34;&#34;&#34;
     plots random images from the directory in a grid.
     Args:
-        nrows: (int) number of rows in grid.
-        ncols: (int) number of columns in grid
-        showpaths: (bool) whether to show paths as title
-                   default False
+        nrows (int):  number of rows in grid.
+        ncols (int):  number of columns in grid
+        showpaths (bool):  whether to show paths as title
+                           default False
         **kwds: Additional keyword arguments to
                 matplotlib.pyplot &#39;s bar function
     &#34;&#34;&#34;

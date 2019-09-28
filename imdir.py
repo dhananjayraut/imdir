@@ -161,7 +161,7 @@ class image_dir:
     image directory class
 
     """
-    def __init__(self, path, recursive=False, nthreads=-1):
+    def __init__(self, path, recursive=False, nthreads=-1, sample_size=-1):
         """
         Args:
             path (str): path for the directory
@@ -170,8 +170,13 @@ class image_dir:
             nthreads (int): Number of Processes to use<br>
                             -1 (default) means use all cpu cores<br>
                             0  means do it in main thread (slow)
+            sample_size (int): Number of images to consider <br>
+                               -1 (default) means all images.
         Returns:
             a image_dir object
+        Note: 
+               for sample_size random sampling is applied before getting image  
+               sizes hence some corrupt file may be present in the sample.
         """
         self.exten_counts = {}
         """(dict) extension counts dictionary"""
@@ -185,6 +190,8 @@ class image_dir:
         """(list) list of height of images"""
 
         filelist = _list_files(path, recursive)
+        if sample_size != -1:
+            filelist = random.sample(filelist, sample_size)
         widthlist, heightlist = _get_dimensions(filelist, nthreads)
         fl, cl, wl, hl = _correct_them(filelist, widthlist, heightlist)
         self.file_list, self.corrupt_file_list = fl, cl
@@ -244,10 +251,10 @@ class image_dir:
         """
         plots random images from the directory in a grid.
         Args:
-            nrows: (int) number of rows in grid.
-            ncols: (int) number of columns in grid
-            showpaths: (bool) whether to show paths as title
-                       default False
+            nrows (int):  number of rows in grid.
+            ncols (int):  number of columns in grid
+            showpaths (bool):  whether to show paths as title
+                               default False
             **kwds: Additional keyword arguments to
                     matplotlib.pyplot 's bar function
         """
