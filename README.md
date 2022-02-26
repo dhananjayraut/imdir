@@ -39,11 +39,11 @@ from imdir import image_dir
 # give path to class
 im_dir = image_dir(path="../input/train/",recursive=True, nthreads=4)
 
-imdir.sc_plot(alpha=0.5) # plot height and width as scatter plot
+im_dir.sc_plot(alpha=0.5) # plot height and width as scatter plot
 
-imdir.width_plot() # plot width as histogram using matplotlib
+im_dir.width_plot() # plot width as histogram using matplotlib
 
-imdir.height_plot() # plot height as histogram using matplotlib
+im_dir.height_plot() # plot height as histogram using matplotlib
 ```
 
 ## Documentation
